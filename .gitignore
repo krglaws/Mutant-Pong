@@ -32,4 +32,5 @@ ehthumbs.db
 sysinfo.txt
 *.stackdump
 *.info
+*.meta
 Library/*

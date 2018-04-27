@@ -13,8 +13,10 @@ A version of Pong made in Unity that evolves better paddles using a genetic algo
 5. Enjoy the show!
 
 ## Dependencies
+
 Unity 2017.3.1f1
-  - not tested with other versions but will probably still work
+- not tested with other versions but will probably still work
+
 Python 2.7
-  - Pillow
-  - py2exe
+- Pillow
+- py2exe

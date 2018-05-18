@@ -10,16 +10,20 @@ class Individual
     // 'rents
     private int parent1, parent2;
 
-    public Individual(float[] chrom, int p1, int p2)
+    // cross site
+    private int xSite;
+
+    public Individual(float[] chrom, int p1, int p2, int crossSite)
     {
         chromosome = chrom;
         parent1 = p1;
         parent2 = p2;
+        xSite = crossSite;
     }
 
     public Individual Clone()
     {
-        Individual clone = new Individual(chromosome, parent1, parent2);
+        Individual clone = new Individual(chromosome, parent1, parent2, xSite);
         return clone;
     }
 
@@ -46,5 +50,14 @@ class Individual
     public void SetFitness(double f)
     {
         fitness = f;
+    }
+   
+    public override string ToString()
+    {
+        string chrom = "";
+        foreach (float f in chromosome)
+            chrom += f + " ";
+
+        return "   (" + parent1 + ", " + parent2 + ")   " + xSite + "\t" + chrom + "\t" + fitness;
     }
 }

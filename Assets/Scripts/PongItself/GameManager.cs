@@ -1,31 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
-    public static int round = 0;
-    const int MAX_SCORE = 5;
+    static int currIndividual = 0;
+    const int MAX_SCORE = 25;
     public static int PlayerScore1 = 0;
     public static int PlayerScore2 = 0;
-    public GUISkin layout;
+    static GUISkin layout;
     GameObject theBall;
-    //SpriteRenderer render;
 
-    // Use this for initialization
     void Start()
     {
         theBall = GameObject.FindGameObjectWithTag("Ball");
         GA.Init();
-        //render = GameObject.Find("MutantPaddle").GetComponent<SpriteRenderer>();
         NextPaddle();
     }
 
+    // setup next paddle at beginning of each game
     void NextPaddle()
     {
+        // load next paddle sprite
         SpriteRenderer renderer = GameObject.Find("MutantPaddle").GetComponent<SpriteRenderer>();
-        renderer.sprite = Resources.Load<Sprite>(""+round);
+        renderer.sprite = Resources.Load<Sprite>(""+currIndividual);
+
         // reset MutantPaddle collider
         MorphSprite instanceofMorphSprite = GameObject.Find("MutantPaddle").GetComponent<MorphSprite>();
         instanceofMorphSprite.ResetCollider();
@@ -45,16 +42,14 @@ public class GameManager : MonoBehaviour
 
     void OnGUI()
     {
+        GUIStyle myStyle = new GUIStyle();
+        myStyle.fontSize = 30;
+        myStyle.normal.textColor = Color.white;
         GUI.skin = layout;
-        GUI.Label(new Rect(Screen.width / 2 - 150 - 12, 20, 100, 100), "" + PlayerScore1);
-        GUI.Label(new Rect(Screen.width / 2 + 150 + 12, 20, 100, 100), "" + PlayerScore2);
+        GUI.Label(new Rect(Screen.width / 2 - 150 - 12, 20, 100, 100), "" + PlayerScore1, myStyle);
+        GUI.Label(new Rect(Screen.width / 2 + 150 + 12, 20, 100, 100), "" + PlayerScore2, myStyle);
 
-        if (GUI.Button(new Rect(Screen.width / 2 - 60, 35, 120, 53), "RESTART"))
-        {
-            PlayerScore1 = 0;
-            PlayerScore2 = 0;
-            theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
-        }
+        GUI.Label(new Rect(Screen.width / 2 - 75, 20, 100, 100), "Gen: "+GA.genNum + ", Ind: " + currIndividual, myStyle);
 
         if (PlayerScore1 == MAX_SCORE)
         {
@@ -68,11 +63,19 @@ public class GameManager : MonoBehaviour
 
     void NewGame()
     {
+        GA.SendScores(PlayerScore1, PlayerScore2, MAX_SCORE, currIndividual);
         PlayerScore1 = 0;
         PlayerScore2 = 0;
-        round++;
+
+        currIndividual++;
+
+        if (currIndividual >= GA.POP_SIZE)
+        {
+            currIndividual = 0;
+            GA.NextGen();
+        }
+
         NextPaddle();
         theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
     }
-
 }

@@ -33,4 +33,4 @@ sysinfo.txt
 *.stackdump
 *.info
 *.meta
-Library/*
+Assets/Resources/

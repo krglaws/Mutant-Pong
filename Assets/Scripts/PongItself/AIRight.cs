@@ -8,8 +8,8 @@ public class AIRight : MonoBehaviour
     private Transform CurrentTransform;
     private Rigidbody2D rb2d;
     public float speed = 7.0f;
-    public float topBound = 2.25f; // upper bound
-    public float bottomBound = -2.25f;
+    public float topBound = 2.35f; // upper bound
+    public float bottomBound = -2.35f;
 
     // Boundary upper limit 
 
@@ -26,8 +26,8 @@ public class AIRight : MonoBehaviour
         var vel = rb2d.velocity;
         Vector2 Ballp = Ball.transform.position;
         Vector2 paddle = this.transform.position;
-        Vector2 movement = new Vector2(-4.025f, 1f);
-        Vector2 DownMovement = new Vector2(-4.025f, -1f);
+       // Vector2 movement = new Vector2(-4.025f, 1f);
+       // Vector2 DownMovement = new Vector2(-4.025f, -1f);
         if (Ball.transform.position.x > 0)
         {
             if (transform.position.y < Ball.transform.position.y)

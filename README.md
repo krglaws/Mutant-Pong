@@ -1,7 +1,6 @@
 # Mutant-Pong
 A version of Pong made in Unity that evolves better paddles using a genetic algorithm. 
-At this stage, only one generation of random individuals is created. The GA itself is 
-not yet fully implemented.
+At this stage, only one generation of random individuals is created.
 
 ## Usage
 1. Download

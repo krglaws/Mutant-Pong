@@ -21,6 +21,3 @@ Unity 2017.3.1f1
 Python 2.7
 - Pillow
 - py2exe
-
-## TO DO
-- implement GA
